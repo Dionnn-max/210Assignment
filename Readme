@@ -1,0 +1,264 @@
+Please accept this assignment:
+
+GitHub Classroom Assignment Link
+
+This time, you will not see your name listed. Simply click Accept Assignment.
+
+Follow these steps:
+
+Zoom Recording: How to Accept the Assignment
+
+If the repository opens in your browser and shows the starter files, the assignment has been set up successfully.
+
+If you continue to have errors (such as not having access or being unable to push changes), we will switch from HTTPS to SSH for cloning.
+
+Next steps (if errors persist):
+
+We will log in using a Personal Access Token (already set up on my end) and clone via SSH instead of HTTPS.
+
+Zoom Recording: How to Use SSH Clone Links
+
+When you click Clone Repository or Get from VCS in your IDE, select the SSH option instead of HTTPS.
+
+Use the SSH URL of your repository, as shown in the video to complete cloning.
+
+
+
+
+After cloning do the following:
+
+Create the program file
+
+Right-click the repo folder → New → C++ Source File → name it main.
+
+This creates main.cpp.
+
+  2. Make sure you can run
+
+CLion may prompt you to create a CMake configuration. Accept it.
+
+Press the green Run button to test.
+
+What you must build in main.cpp
+
+You will write a small math game called Race to 20.
+
+Two players (You and the Computer) take turns adding numbers to their scores.
+
+On your turn, you may add 1, 2, or 3. You also have a one-time bonus of +2, which can only be used once.
+
+The computer automatically adds 1 or 2 in a predictable pattern.
+
+The first to reach or pass 20 wins. If both reach 20 in the same round, it is a tie.
+
+The program ends when someone wins or when you choose to quit.
+
+The goal is to practice:
+
+Creating a simple class in C++.
+
+Writing and calling functions with pass by reference.
+
+Using a pointer to a primitive value safely (int*)
+
+Explaining the difference between pass by value, pass by reference, and pointers in inline comments.
+
+A) Class specification
+
+Class: Player
+
+Private fields:
+
+std::string name;
+
+int score;
+
+Public interface:
+
+Player(const std::string& n, int startScore);
+
+const std::string& getName() const;
+
+int getScore() const;
+
+bool hasWon(int target) const;
+
+void addToScore(int amount);
+
+Inside addToScore(int amount), add an inline comment explaining why amount is pass by value.
+
+B) Required free functions
+
+Pass by reference
+
+void addMove(Player& who, int step);
+
+Validate step. Only 1, 2, 3 allowed.
+
+Apply to who. Print the new score.
+
+Inline comment: explain how pass by reference updates the original object.
+
+Pointer to primitive
+
+void useBonus(int* bonusPtr, Player& who);
+
+If bonusPtr is nullptr, return.
+
+If *bonusPtr <= 0, print a short message and return.
+
+Otherwise, add *bonusPtr to who, print the result, then set *bonusPtr = 0.
+
+Inline comment: explain what *bonusPtr means.
+
+Deterministic computer helper
+
+int compStep();
+
+Return 1 or 2 in a predictable way.
+
+C) Game loop (main) requirements
+
+Constant: const int TARGET = 20;
+
+Human player on stack:
+
+Player you("You", 0);
+
+Computer on stack:
+
+Player computer("Computer", 0);
+
+Bonus:
+
+int bonus = 2;
+
+Menu each turn:
+
+Add 1
+
+Add 2
+
+Add 3
+
+Use one-time bonus (+2)
+
+Quit
+
+Handle moves:
+
+1/2/3 → addMove(you, choice)
+
+4 → useBonus(&bonus, you)
+
+5 → quit
+
+If human reaches/passes 20, stop.
+
+Otherwise computer moves with addMove(computer, compStep()).
+
+Print final scores. Handle win/lose/tie.
+
+D) Constraints
+
+One file: main.cpp
+
+Allowed headers: <iostream>, <string>, <limits> (optional)
+
+No arrays, no vectors, no global variables
+
+Validate inputs, do not crash on bad input
+
+Do not cap scores at 20
+
+E) Inline comments required
+
+At getters: return by const reference vs value.
+
+At addMove: why pass by reference works.
+
+At useBonus: what *bonusPtr means.
+
+At addToScore: why amount is pass by value.
+
+Commit and push from CLion, step by step
+A) Make your first commit
+
+Save your file in CLion.
+
+Open the commit window: Git → Commit… (Ctrl+K on Windows, Cmd+K on Mac), or click the Commit tab at the bottom.
+
+In the file list, check only main.cpp. If other files, for example .idea or cmake-build-debug, are selected, uncheck them.
+
+In Commit Message, write something short, for example, Add Player class and functions.
+
+Click Commit. If CLion shows warnings, read them, then click Commit again.
+
+
+
+B) Push to GitHub
+
+Go to Git → Push…, or click the Push button that appears after a successful commit.
+
+In the Push dialog:
+
+Ensure origin is the remote,
+
+Ensure the branch is main (or the default branch shown by CLion).
+
+Click Push.
+
+If CLion asks you to sign in, choose Log In to GitHub, follow the prompt, and allow access. If it asks to set an upstream, accept the default.
+
+
+
+C) Verify on GitHub
+
+Open your repository page on GitHub Classroom in your browser, refresh, and confirm you see your new commit and the updated main.cpp.
+
+
+
+
+D) Make more changes later
+
+Repeat: Save → Git → Commit… → Commit → Git → Push… → Push → Refresh GitHub.
+
+Common issues and quick fixes
+
+“Nothing to commit.”
+
+You did not change a tracked file, or you forgot to save. Save main.cpp, try again.
+
+Accidentally selected big folders like .idea or cmake-build-debug.
+
+Open Git → Commit…, uncheck everything except main.cpp, then commit and push again.
+
+“Push rejected, pull first.”
+
+Someone, or a template action, changed the remote. Do Git → Pull…, accept the defaults, then Commit and Push again. If a merge dialog appears, accept the defaults.
+
+“No remotes configured” or CLion does not show Git actions.
+
+Go to File → Settings → Version Control, ensure your project folder is listed. Then Git → Manage Remotes…, confirm origin points to your Classroom repo.
+
+Authentication problems.
+
+File → Settings → Version Control → GitHub → Log In, use the GitHub option CLion suggests. Then retry Git → Push….
+
+Pushed to the wrong repo.
+
+Make sure you accepted the Classroom assignment and cloned your repo URL, not a template. If needed, reclone from Get from VCS with the correct SSH URL, then commit and push again.
+
+FAQ
+
+Do I need randomness? No. compStep() must be predictable.
+
+Can I put the bonus inside the class? No. Keep it in main.
+
+What if I change signatures? You will lose points.
+
+What if I skip validation? You will lose points.
+
+What if both reach 20 in the same round? Print “tie.”
+
+If you follow this exactly, you will produce a small, clean C++ program that demonstrates a class, a reference parameter, a pointer parameter to a primitive, safe checks, and an understandable game loop.
